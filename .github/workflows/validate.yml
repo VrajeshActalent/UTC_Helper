@@ -1,0 +1,48 @@
+name: Pylint Validation
+
+on:
+  push:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Target Repo
+        uses: actions/checkout@v4
+
+      - name: Get Changed Files
+        id: changed_files
+        run: |
+          git diff --name-only HEAD~1 HEAD > changed_files.txt
+
+      - name: Check for Python Changes
+        id: check_py
+        run: |
+          if grep -E "\.py$" changed_files.txt; then
+            echo "RUN_VALIDATION=true" >> $GITHUB_ENV
+          else
+            echo "RUN_VALIDATION=false" >> $GITHUB_ENV
+          fi
+
+      - name: Clone Validator Repo
+        if: env.RUN_VALIDATION == 'true'
+        run: |
+          git clone https://github.com/YOUR_USERNAME/VALIDATOR_REPO.git
+
+      - name: Install Dependencies
+        if: env.RUN_VALIDATION == 'true'
+        run: |
+          pip install pylint pandas openpyxl
+
+      - name: Run Validation
+        if: env.RUN_VALIDATION == 'true'
+        run: |
+          python VALIDATOR_REPO/generate_report.py
+
+      - name: Upload Report
+        if: env.RUN_VALIDATION == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Pylint_Report
+          path: "*.xlsx"
