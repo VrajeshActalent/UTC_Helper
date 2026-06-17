@@ -13,10 +13,9 @@ jobs:
 
       - name: Get Changed Files
         run: |
-          git diff --name-only HEAD~1 HEAD > changed_files.txt
+          git diff --name-only HEAD~1 HEAD > changed_files.txt || git ls-files > changed_files.txt
 
       - name: Check for Python Changes
-        id: check_py
         run: |
           if grep -E "\.py$" changed_files.txt; then
             echo "RUN_VALIDATION=true" >> $GITHUB_ENV
