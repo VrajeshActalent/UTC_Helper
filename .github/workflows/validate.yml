@@ -27,7 +27,7 @@ jobs:
       - name: Clone Validator Repo
         if: env.RUN_VALIDATION == 'true'
         run: |
-          git clone https://github.com/VrajeshActalent/YOUR_VALIDATOR_REPO.git
+          git clone https://github.com/VrajeshActalent/PEP8-Validator.git
 
       - name: Install Dependencies
         if: env.RUN_VALIDATION == 'true'
