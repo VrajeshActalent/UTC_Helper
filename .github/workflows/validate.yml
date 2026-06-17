@@ -12,7 +12,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get Changed Files
-        id: changed_files
         run: |
           git diff --name-only HEAD~1 HEAD > changed_files.txt
 
@@ -28,7 +27,7 @@ jobs:
       - name: Clone Validator Repo
         if: env.RUN_VALIDATION == 'true'
         run: |
-          git clone https://github.com/YOUR_USERNAME/VALIDATOR_REPO.git
+          git clone https://github.com/VrajeshActalent/YOUR_VALIDATOR_REPO.git
 
       - name: Install Dependencies
         if: env.RUN_VALIDATION == 'true'
@@ -38,11 +37,11 @@ jobs:
       - name: Run Validation
         if: env.RUN_VALIDATION == 'true'
         run: |
-          python VALIDATOR_REPO/generate_report.py
+          python YOUR_VALIDATOR_REPO/generate_report.py
 
-      - name: Upload Report
+      - name: Upload Excel Report
         if: env.RUN_VALIDATION == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: Pylint_Report
+          name: Pylint_Reports
           path: "*.xlsx"
