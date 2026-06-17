@@ -37,7 +37,7 @@ jobs:
       - name: Run Validation
         if: env.RUN_VALIDATION == 'true'
         run: |
-          python YOUR_VALIDATOR_REPO/generate_report.py
+          python PEP8-Validator/generate_report.py
 
       - name: Upload Excel Report
         if: env.RUN_VALIDATION == 'true'
