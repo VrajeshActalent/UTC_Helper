@@ -432,7 +432,7 @@ def run_processing(xlsx_path: str, c_path: str, log) -> int:
         else:
             final_exp = build_expected_lines(funcs, rv_map, 1)
 
-        # ── Actual Results ────────────────────────────────────────────────────
+        # ── Actual Results ────────────────────────────────────────────────────-
         ex_act     = get_cell_text(sheet, row_idx, ACT_S)
         act_serial = get_next_serial(ex_act)
 
